@@ -6,7 +6,8 @@
         >
         <img src="assets/steprealm-logo.png" alt="Step Realm Logo" width="300">
     </picture>
-    <b style="font-weight: bold; font-size: 36px;">Step Realm</b>
+    <br>
+    <b style="font-size: 36px;">Step Realm</b>
     <br>
     <b style="font-size: 16px">© 2026 by AEYCEN</b>
     <br>
