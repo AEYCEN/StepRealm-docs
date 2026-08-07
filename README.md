@@ -4,12 +4,12 @@
           width="200px"
           media="(prefers-color-scheme: dark)"
         >
-        <img src="assets/steprealm-logo.png" alt="Step Realm Logo" width="300">
+        <img src="assets/app-icon.png" alt="Step Realm Logo" width="320">
     </picture>
     <br>
-    <b style="font-size: 36px;">Step Realm</b>
-    <br>
-    <b style="font-size: 16px">© 2026 by AEYCEN</b>
+    <b>Step Realm</b>
+    <br><br>
+    <b>© 2026 by AEYCEN</b>
     <br>
     Jeder Schritt baut dein Reich
     <br>
