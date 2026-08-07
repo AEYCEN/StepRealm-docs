@@ -4,7 +4,7 @@
           width="200px"
           media="(prefers-color-scheme: dark)"
         >
-        <img src="assets/app-icon.png" alt="Step Realm Logo" width="320">
+        <img src="assets/app-icon.png" alt="Step Realm Logo" width="280">
     </picture>
     <br>
     <b>Step Realm</b>
