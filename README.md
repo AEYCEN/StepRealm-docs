@@ -1,15 +1,22 @@
-# Step Realm
-
 <p align="center">
-  <img src="assets/steprealm-logo.png" alt="Step Realm Logo" width="300">
+    <picture>
+        <source
+          width="200px"
+          media="(prefers-color-scheme: dark)"
+        >
+        <img src="assets/steprealm-logo.png" alt="Step Realm Logo" width="300">
+    </picture>
+    <br>
+    <b style="font-size: 16px">© 2026 by AEYCEN</b>
+    <br>
+    Jeder Schritt baut dein Reich
+    <br>
 </p>
+
+---
 
 **Step Realm** ist ein Android-Spiel, das Bewegung belohnt: Deine täglichen Schritte
 werden zu Ressourcen, aus denen du Schritt für Schritt dein eigenes Dorf aufbaust.
-Passive Produktion, tägliche Ereignissen, ein 7-Tage-Streak und ein
-wöchentlichen Leaderboard über Google Play Games sind ebenfalls dabei.
-
-> Jeder Schritt baut dein Reich.
 
 **➡️ [Roadmap ansehen](https://aeycen.github.io/StepRealm-docs)**
 
