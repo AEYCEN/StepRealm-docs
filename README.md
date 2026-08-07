@@ -6,7 +6,7 @@
         >
         <img src="assets/steprealm-logo.png" alt="Step Realm Logo" width="300">
     </picture>
-    <br>
+    <h1>Step Realm</h1>
     <b style="font-size: 16px">© 2026 by AEYCEN</b>
     <br>
     Jeder Schritt baut dein Reich
