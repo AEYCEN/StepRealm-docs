@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="AEYCEN">
+<meta name="description" content="Step Realm – Roadmap: Jeder Schritt baut dein Reich.">
+<title>Step Realm - Roadmap</title>
+<link rel="icon" type="image/png" href="assets/steprealm-logo-minimalist.png">
+<link rel="stylesheet" href="roadmap.css">
+<script src="roadmap.js"></script>
+</head>
+<body>
+<canvas id="dust" aria-hidden="true"></canvas>
+<div class="page">
+
+  <header>
+    <img class="logo" src="assets/steprealm-logo.png" alt="Step Realm Logo">
+    <h1>Step Realm</h1>
+    <p class="tagline">Jeder Schritt baut dein Reich</p>
+    <div class="hero-rule">◆</div>
+    <h2 data-text="Roadmap">Roadmap</h2>
+    <div><span class="stand" id="stand">Stand: 07.08.2026</span></div>
+    <div class="progress">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-label"><span id="progress-done">7</span> von <span id="progress-total">27</span> Meilensteinen erreicht</div>
+    </div>
+  </header>
+
+  <main class="timeline">
+    <div class="viewport" id="viewport">
+      <div class="track" id="track">
+
+    <span class="track-cap">◆</span>
+
+    <div class="section-label"><span class="pill">Kern-Loop<span class="count"></span></span></div>
+
+    <article class="milestone done">
+      <div class="card">
+        <h3>Projekt-Setup + Schrittzähler</h3>
+        <p>Die App zählt deine Schritte zuverlässig im Hintergrund und zeigt sie live an. Auch nach einem Neustart des Geräts geht kein Schritt verloren.</p>
+        <span class="badge">✓ erledigt</span>
+      </div>
+      <div class="node"><span class="glyph">👟</span></div>
+    </article>
+
+    <article class="milestone done">
+      <div class="card">
+        <h3>Kern-Loop</h3>
+        <p>Deine Schritte verwandeln sich in Ressourcen, mit denen du die ersten fünf Gebäude baust. Dein Dorf bleibt dauerhaft gespeichert.</p>
+        <span class="badge">✓ erledigt</span>
+      </div>
+      <div class="node"><span class="glyph">🏠</span></div>
+    </article>
+
+    <article class="milestone done">
+      <div class="card">
+        <h3>Passive Produktion + Gold</h3>
+        <p>Deine Gebäude produzieren auch dann, wenn du nicht läufst – bis zu einem Deckel, damit Laufen der wichtigste Weg bleibt. Gold sammelst du über einen Fortschrittsbalken, der sich mit jedem Schritt füllt.</p>
+        <span class="badge">✓ erledigt</span>
+      </div>
+      <div class="node"><span class="glyph">🪙</span></div>
+    </article>
+
+    <article class="milestone done">
+      <div class="card">
+        <h3>Leaderboard</h3>
+        <p>Ein wöchentliches Leaderboard über Google Play Games zeigt, wer diese Woche am fleißigsten war. Gezählt werden deine Wochenschritte und dein Baufortschritt.</p>
+        <span class="badge">✓ erledigt</span>
+      </div>
+      <div class="node"><span class="glyph">🏆</span></div>
+    </article>
+
+    <article class="milestone done">
+      <div class="card">
+        <h3>Cloud-Save</h3>
+        <p>Dein Dorf übersteht Neuinstallation und Gerätewechsel, weil der Spielstand automatisch in der Cloud gesichert wird. Bei zwei Geräten gewinnt immer der weitere Fortschritt.</p>
+        <span class="badge">✓ erledigt</span>
+      </div>
+      <div class="node"><span class="glyph">☁️</span></div>
+    </article>
+
+    <article class="milestone done">
+      <div class="card">
+        <h3>7-Tage-Streak</h3>
+        <p>Wer die tägliche Schrittschwelle erreicht, baut einen Streak auf, den eine Karte im Schritte-Tab anzeigt. Der Streak übersteht auch eine Neuinstallation.</p>
+        <span class="badge">✓ erledigt</span>
+      </div>
+      <div class="node"><span class="glyph glyph-fallback">🔥</span></div>
+    </article>
+
+    <article class="milestone done">
+      <div class="card">
+        <h3>Zufällige Ereignisse</h3>
+        <p>Jeden Tag kann ein Ereignis dein Dorf treffen: Belohnungen, Rabatte, ein Umwandlungs-Bonus – oder Unglücke, die ein Gebäude beschädigen, bis du es reparierst. Ein vollendeter Streak zahlt eine wählbare Belohnung aus.</p>
+        <span class="badge">✓ erledigt</span>
+      </div>
+      <div class="node"><span class="glyph">🎲</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Marktplatz-Tausch</h3>
+        <p>Am Marktplatz tauschst du Ressourcen ineinander um – gegen eine Gebühr, die mit dem Ausbau des Marktplatzes sinkt. Ein Tageslimit verhindert, dass der Tausch das Laufen ersetzt.</p>
+      </div>
+      <div class="node"><span class="glyph">💱</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Umwandlungsraten am Rathaus-Level</h3>
+        <p>Jedes Rathaus-Level macht deine Schritte wertvoller: Alle Umwandlungsraten steigen mit dem Ausbau. Damit lohnt sich das Rathaus dauerhaft und die Spielbalance wird erstmals richtig einstellbar.</p>
+      </div>
+      <div class="node"><span class="glyph">🏛️</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>KI-Ereignistexte</h3>
+        <p>Ereignisse erhalten KI-generierte Lore-Texte, die mehr Abwechslung in die Meldungen bringen. Ohne Internet greifen immer die eingebauten Texte.</p>
+      </div>
+      <div class="node"><span class="glyph">✨</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Schrittquelle: Health Connect</h3>
+        <p>Du benötigst nicht mehr das Smartphone an deinem Körper, um Schritte erfassen zu können. Eine Smartwatch bspw. kann nun ebenfalls Schritte erfassen.</p>
+      </div>
+      <div class="node"><span class="glyph">⌚</span></div>
+    </article>
+
+    <div class="section-label"><span class="pill">Lebendiges Dorf<span class="count"></span></span></div>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Forschungssystem</h3>
+        <p>Ein zweiter Fortschrittspfad: Du kannst deine Schritte statt in Ressourcen in Forschung stecken und in einem Baum neue Möglichkeiten freischalten. Das neue Labor-Gebäude treibt die Forschung zusätzlich voran.</p>
+      </div>
+      <div class="node"><span class="glyph">🔬</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Dorf-Entwicklungsstufen</h3>
+        <p>Dein Dorf steigt sichtbar auf: vom Lager über Dorf, Siedlung und Stadt bis zum Königreich. Jeder Aufstieg wird gefeiert und kostet Vorräte für die wachsende Einwohnerschaft.</p>
+      </div>
+      <div class="node"><span class="glyph">👑</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Tagesboni</h3>
+        <p>Jeder Tag bringt etwas Besonderes: Die ersten Schritte des Tages zählen doppelt, wechselnde Zeitfenster geben Extra-Ressourcen und der Sonntag ist Goldtag. Aktive Boni siehst du direkt im Schritte-Tab.</p>
+      </div>
+      <div class="node"><span class="glyph">🌅</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Spieleridentität</h3>
+        <p>Dein Dorf bekommt einen Namen, eine Bannerfarbe und ein Motto. Ein teilbares Dorf-Bild zeigt Freunden, was du aufgebaut hast; außerdem kommt ein Einstellungs-Screen dazu.</p>
+      </div>
+      <div class="node"><span class="glyph">🚩</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Isometrie</h3>
+        <p>Das Dorf wird lebendig: Eine echte grafische Darstellung des Dorfs.</p>
+      </div>
+      <div class="node"><span class="glyph">💨</span></div>
+    </article>
+
+    <div class="section-label"><span class="pill">Spieltiefe<span class="count"></span></span></div>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Synergiegebäude</h3>
+        <p>Neue Gebäude verstärken ihre Nachbarn: Ein Sägewerk steigert alle Holzfäller-Hütten, der Brunnen alle Bauernhöfe. Wo du baust, wird damit zur strategischen Entscheidung.</p>
+      </div>
+      <div class="node"><span class="glyph">🪚</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Spezialisierung</h3>
+        <p>Ab der Siedlungs-Stufe wählst du einen Fokus – Nahrung, Stein oder Gold – der deine Ausrichtung prägt. So wird jedes Dorf sichtbar anders als die der Freunde.</p>
+      </div>
+      <div class="node"><span class="glyph">🎯</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Sammelobjekte</h3>
+        <p>Beim Laufen entdeckst du seltene Fundstücke wie Edelsteine, alte Werkzeuge oder ein Haustier. Eine eigene Sammlung zeigt deine Funde, manche haben kleine Effekte im Dorf.</p>
+      </div>
+      <div class="node"><span class="glyph">💎</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Tägliche Anreize</h3>
+        <p>Ein wandernder Händler bietet täglich wechselnde Tauschgeschäfte, dazu gibt es ein kleines Tagesereignis und ein tägliches Gratis-Geschenk. Es lohnt sich, jeden Tag vorbeizuschauen.</p>
+      </div>
+      <div class="node"><span class="glyph">🎁</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Jahreszeiten</h3>
+        <p>Das Dorf folgt dem echten Kalender: Schnee im Winter, Laubfärbung im Herbst, Blumen im Frühling. Rein kosmetisch – am Spiel ändert sich nichts.</p>
+      </div>
+      <div class="node"><span class="glyph">🍂</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Wetter-Bonus</h3>
+        <p>Das echte Wetter wirkt ins Spiel hinein, zum Beispiel mehr Stein bei Regen. Nur wenn du den Standort freigibst – ohne läuft das Spiel unverändert weiter.</p>
+      </div>
+      <div class="node"><span class="glyph">🌦️</span></div>
+    </article>
+
+    <div class="section-label"><span class="pill">Social &amp; Endgame<span class="count"></span></span></div>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Freunde-Galerie</h3>
+        <p>Besuche die Dörfer deiner Freunde und schau dir an, was sie aufgebaut haben. Reines Anschauen – niemand kann in deinem Dorf etwas verändern.</p>
+      </div>
+      <div class="node"><span class="glyph">👥</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Achievements + saisonale Events</h3>
+        <p>Erfolge über Google Play Games und zeitlich begrenzte Community-Events wie ein Adventskalender. Neue Gründe, auch nach dem Endausbau dranzubleiben.</p>
+      </div>
+      <div class="node"><span class="glyph">🏅</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Weltwunder als Endgame</h3>
+        <p>Ein Weltwunder mit enormen, etappenweisen Kosten als Langfristziel jenseits des Königreichs. Der krönende Abschluss für ausdauernde Läufer.</p>
+      </div>
+      <div class="node"><span class="glyph">🗿</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Gilden &amp; Kooperation</h3>
+        <p>Gemeinsame Bauprojekte, Handel zwischen Freunden und Weltereignisse. Zusammen erreicht ihr, was allein nicht zu schaffen ist.</p>
+      </div>
+      <div class="node"><span class="glyph">🤝</span></div>
+    </article>
+
+    <article class="milestone open">
+      <div class="card">
+        <h3>Überfälle</h3>
+        <p>Starte Überfälle auf andere Mitspieler, um Ressourcen zu stehlen. Neben Verteidigungsanlagen kannst du deinem Dorf mit aktivem Körpereinsatz helfen, sich zur Wehr zu setzen.</p>
+      </div>
+      <div class="node"><span class="glyph">⚔️</span></div>
+    </article>
+
+    <span class="track-cap">◆</span>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="ornament">◆ ◇ ◆</div>
+    <div class="dev">
+      <img class="dev-logo" src="assets/aeycen-logo.png" alt="AEYCEN Logo">
+      <p class="dev-line">Ein Spiel von <a href="https://github.com/AEYCEN" target="_blank"><strong>AEYCEN</strong></a></p>
+      <p class="dev-copy">© 2026 AEYCEN · Step Realm</p>
+      <img class="android-badge" src="assets/built-for-android.png" alt="Built for Android">
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

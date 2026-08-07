@@ -1,0 +1,498 @@
+/* Step Realm – Roadmap page styles.
+   The timeline (.viewport) is its own native horizontal scroller inside a
+   normally scrolling page; JS only centers the start position and maps the
+   wheel while hovering. Card above/below alternation runs on
+   article:nth-of-type — section labels are divs and don't shift the count.
+   Animation start states are gated on html.js so the page stays fully
+   visible when JavaScript is unavailable. */
+
+:root {
+  --bg-deep: #021d1f;
+  --bg-teal: #033336;
+  --ink: #e9f1ec;
+  --ink-soft: #b9ccc4;
+  --ink-faint: #86a099;
+  --gold: #e3c27e;
+  --gold-soft: #d9b36b;
+  --gold-dim: rgba(217, 179, 107, 0.35);
+  --line-teal: rgba(126, 196, 182, 0.35);
+  --card-bg: rgba(255, 255, 255, 0.045);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --serif: "Palatino Linotype", "Book Antiqua", Georgia, "Times New Roman", serif;
+  --sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --emoji: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--bg-deep);
+  min-height: 100vh;
+  /* 100vw full-bleed elements include the scrollbar width */
+  overflow-x: hidden;
+}
+/* fixed backdrop layer instead of background-attachment: fixed — same look,
+   but without the scroll repaints that jank on desktop and mobile */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(1100px 520px at 50% -80px, rgba(13, 92, 88, 0.55), transparent 70%),
+    radial-gradient(900px 700px at 85% 40%, rgba(8, 64, 62, 0.35), transparent 70%),
+    radial-gradient(900px 700px at 12% 75%, rgba(8, 64, 62, 0.30), transparent 70%),
+    linear-gradient(180deg, var(--bg-teal) 0%, var(--bg-deep) 45%, #01181a 100%);
+}
+
+/* drifting gold dust, drawn by JS; content stacks above it */
+#dust {
+  position: fixed; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.page { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 64px 28px 90px; }
+
+/* ---------- hero ---------- */
+
+header { text-align: center; margin-bottom: 26px; }
+
+header .logo {
+  width: 240px; max-width: 60vw; height: auto;
+  filter: drop-shadow(0 0 34px rgba(120, 220, 200, 0.28));
+}
+
+header h1 {
+  font-family: var(--serif);
+  font-size: clamp(34px, 6vw, 52px);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  margin-top: 6px;
+  color: var(--ink);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+}
+
+.tagline {
+  margin-top: 8px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+}
+
+.hero-rule {
+  display: flex; align-items: center; justify-content: center;
+  gap: 14px; margin: 18px auto 14px; max-width: 460px;
+  color: var(--gold-soft); font-size: 13px;
+}
+.hero-rule::before, .hero-rule::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim));
+}
+.hero-rule::after { background: linear-gradient(90deg, var(--gold-dim), transparent); }
+
+header h2 {
+  position: relative;
+  font-family: var(--serif);
+  font-size: clamp(22px, 3.4vw, 30px);
+  font-weight: 400;
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  text-transform: uppercase;
+  background: linear-gradient(120deg, #f4e0af, var(--gold-soft) 45%, #a8874b);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: var(--gold);
+}
+/* the shine is a text-clipped overlay whose highlight sits off-text at both
+   keyframe ends — the loop restart is therefore invisible, even during the
+   long hold */
+header h2::after {
+  content: attr(data-text);
+  position: absolute; left: 0; right: 0; top: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent 0%, transparent 42%,
+    rgba(255, 246, 221, 0.85) 50%,
+    transparent 58%, transparent 100%);
+  background-size: 250% auto;
+  background-position: 120% center;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  animation: gold-shine 6.5s ease-in-out 2s infinite;
+}
+@keyframes gold-shine {
+  0% { background-position: 120% center; }
+  45%, 100% { background-position: -20% center; }
+}
+
+.stand {
+  margin-top: 16px; display: inline-block;
+  font-size: 12.5px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-faint);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px; padding: 6px 18px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.progress { margin: 30px auto 0; max-width: 420px; }
+.progress-track {
+  height: 5px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+.progress-fill {
+  position: relative; overflow: hidden;
+  height: 100%; width: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, #8f7136, var(--gold-soft), #f4e0af);
+  box-shadow: 0 0 12px rgba(227, 194, 126, 0.55);
+}
+.progress-fill::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 46px; left: -46px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: bar-shine 3.4s ease-in-out 2.2s infinite;
+}
+@keyframes bar-shine {
+  0% { left: -46px; }
+  55%, 100% { left: 100%; }
+}
+.js .progress-fill { width: 0; transition: width 1.4s cubic-bezier(0.25, 0.6, 0.3, 1) 0.4s; }
+.progress-label {
+  margin-top: 10px; font-size: 13px; color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+
+/* hero entrance (CSS-only, runs with or without JS) */
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+header > * { animation: hero-in 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) backwards; }
+header .logo { animation-delay: 0.05s; }
+header h1 { animation-delay: 0.15s; }
+.tagline { animation-delay: 0.25s; }
+.hero-rule { animation-delay: 0.35s; }
+header h2 { animation-delay: 0.45s; }
+header div { animation-delay: 0.55s; }
+header .progress { animation-delay: 0.65s; }
+
+/* ---------- horizontal timeline ---------- */
+
+/* The timeline is its own horizontal scroller; the page keeps scrolling
+   vertically as usual. JS only centers the start position and maps the
+   mouse wheel to sideways scrolling while hovering. */
+.timeline { position: relative; margin-top: 40px; }
+
+/* full-bleed out of the centered .page column */
+.viewport {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  height: min(74vh, 680px);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-dim) rgba(255, 255, 255, 0.06);
+}
+.viewport::-webkit-scrollbar { height: 8px; }
+.viewport::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+.viewport::-webkit-scrollbar-thumb {
+  background: var(--gold-dim); border-radius: 4px;
+}
+.viewport::-webkit-scrollbar-thumb:hover { background: var(--gold-soft); }
+
+/* edge fades hint that the strip continues */
+.timeline::before, .timeline::after {
+  content: ""; position: absolute; top: 0; bottom: 10px; width: 70px;
+  pointer-events: none; z-index: 2;
+}
+.timeline::before {
+  left: calc(50% - 50vw);
+  background: linear-gradient(90deg, rgba(2, 29, 31, 0.85), transparent);
+}
+.timeline::after {
+  right: calc(50% - 50vw);
+  background: linear-gradient(270deg, rgba(2, 29, 31, 0.85), transparent);
+}
+
+.track {
+  position: relative;
+  height: 100%;
+  width: max-content;
+  display: flex;
+  align-items: stretch;
+  padding: 0 max(10vw, 90px);
+}
+
+/* the horizontal line through the middle */
+.track::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%;
+  height: 2px; transform: translateY(-50%);
+  background: linear-gradient(90deg,
+    transparent, var(--gold-dim) 2%, var(--line-teal) 25%,
+    var(--line-teal) 75%, var(--gold-dim) 98%, transparent);
+}
+
+.track-cap {
+  align-self: center;
+  color: var(--gold-dim);
+  font-size: 15px;
+  padding: 0 10px;
+  position: relative; z-index: 1;
+}
+
+.section-label {
+  align-self: center;
+  margin: 0 26px;
+  position: relative; z-index: 1;
+}
+.section-label .pill {
+  display: inline-flex; align-items: baseline; gap: 12px;
+  white-space: nowrap;
+  font-family: var(--serif);
+  font-size: 17px; letter-spacing: 0.26em; text-indent: 0.26em;
+  text-transform: uppercase; color: var(--gold);
+  background: linear-gradient(180deg, #06393b, #042b2d);
+  border: 1px solid var(--gold-dim);
+  border-radius: 999px; padding: 10px 30px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.section-label .count {
+  font-family: var(--sans); font-size: 12px; letter-spacing: 0.08em;
+  text-indent: 0; color: var(--ink-faint);
+}
+
+/* one milestone = one column: node pinned to the line, card anchored above
+   or below it. Both are absolutely positioned — the node sits at exactly
+   50% no matter how tall the card is; JS grows the strip if the tallest
+   card would not fit (see setupStripFit). --card-gap = distance from the
+   line to the card edge. */
+.milestone {
+  position: relative;
+  --card-gap: 52px;
+  width: 360px;
+  flex-shrink: 0;
+  margin: 0 22px;
+}
+
+.node {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px; height: 60px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--emoji); font-size: 26px; line-height: 1;
+  background: radial-gradient(circle at 34% 30%, #0a4a4a, #032628 72%);
+  position: relative; z-index: 1;
+}
+.done .node {
+  border: 2px solid var(--gold-soft);
+  box-shadow: 0 0 0 4px rgba(227, 194, 126, 0.12), 0 0 22px rgba(227, 194, 126, 0.35);
+  animation: node-glow 4s ease-in-out infinite alternate;
+}
+@keyframes node-glow {
+  from { box-shadow: 0 0 0 4px rgba(227, 194, 126, 0.10), 0 0 16px rgba(227, 194, 126, 0.25); }
+  to { box-shadow: 0 0 0 4px rgba(227, 194, 126, 0.16), 0 0 28px rgba(227, 194, 126, 0.45); }
+}
+.open .node {
+  border: 2px dashed rgba(255, 255, 255, 0.28);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.04);
+}
+.glyph { filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4)); }
+.glyph-fallback { color: var(--gold-soft); font-family: var(--serif); }
+.done .node::after {
+  content: "✓";
+  position: absolute; right: -4px; bottom: -4px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: linear-gradient(150deg, #f4e0af, #c39a4e);
+  color: #10312f; font-family: var(--sans); font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid #032628;
+}
+
+.card {
+  position: absolute; left: 0; right: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 18px 22px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  text-align: left;
+}
+.done .card { border-color: var(--gold-dim); }
+.open .card { opacity: 0.88; }
+
+/* alternation: odd articles above the line, even articles below */
+article.milestone:nth-of-type(odd) .card { bottom: calc(50% + var(--card-gap)); }
+article.milestone:nth-of-type(even) .card { top: calc(50% + var(--card-gap)); }
+
+/* vertical connector between card and node */
+.card::before {
+  content: ""; position: absolute; left: 50%; width: 1.5px; height: 22px;
+}
+article.milestone:nth-of-type(odd) .card::before {
+  bottom: -23px; background: linear-gradient(180deg, var(--gold-dim), transparent);
+}
+article.milestone:nth-of-type(even) .card::before {
+  top: -23px; background: linear-gradient(0deg, var(--gold-dim), transparent);
+}
+.open .card::before { opacity: 0.5; }
+
+.card h3 {
+  font-family: var(--serif); font-size: 20px; font-weight: 600;
+  letter-spacing: 0.02em; color: var(--ink); margin-bottom: 8px;
+}
+.done .card h3 { color: #f2e3c0; }
+.card p { font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+
+.badge {
+  display: inline-block; margin-top: 12px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); border: 1px solid var(--gold-dim); border-radius: 999px;
+  padding: 4px 12px; background: rgba(227, 194, 126, 0.08);
+}
+
+/* pulsing dot on the line where done meets open, inserted by JS */
+.here-marker {
+  position: absolute; top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff6dd, #e3c27e 70%);
+  box-shadow: 0 0 14px rgba(227, 194, 126, 0.85);
+  pointer-events: none;
+  animation: here-breathe 2.6s ease-in-out infinite;
+}
+.here-marker::before, .here-marker::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: 46px; height: 46px;
+  transform: translate(-50%, -50%) scale(0.3);
+  border-radius: 50%;
+  border: 1px solid var(--gold-soft);
+  opacity: 0;
+  animation: here-pulse 2.6s ease-out infinite;
+}
+.here-marker::after { animation-delay: 1.3s; }
+@keyframes here-pulse {
+  0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+}
+@keyframes here-breathe {
+  0%, 100% { box-shadow: 0 0 10px rgba(227, 194, 126, 0.65); }
+  50% { box-shadow: 0 0 20px rgba(227, 194, 126, 1); }
+}
+
+/* ---------- reveal while sliding in (states only exist with JS) ---------- */
+
+.js .milestone, .js .section-label {
+  opacity: 0;
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.js .section-label { transform: translateY(14px); }
+.js article.milestone:nth-of-type(odd) { transform: translateY(-26px); }
+.js article.milestone:nth-of-type(even) { transform: translateY(26px); }
+/* the node's base transform carries its centering — keep it in every state */
+.js .milestone .node {
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0;
+  transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.5, 1) 0.15s, opacity 0.4s ease 0.15s;
+}
+/* the reveal reset must outrank every initial state above AND the mobile
+   overrides further down — hence the deliberately high specificity */
+.js .revealed { opacity: 1; transform: none; }
+.js .track article.milestone.revealed { opacity: 1; transform: none; }
+.js .revealed .node { transform: translate(-50%, -50%); opacity: 1; }
+
+/* ---------- footer ---------- */
+
+footer { margin-top: 70px; text-align: center; }
+footer .ornament {
+  color: var(--gold-dim); font-size: 15px; letter-spacing: 0.6em; text-indent: 0.6em;
+}
+footer .dev { margin-top: 34px; }
+.dev-logo {
+  width: 56px; height: auto; opacity: 0.9;
+  filter: drop-shadow(0 0 14px rgba(120, 220, 200, 0.25));
+}
+.dev-line {
+  margin-top: 10px; font-size: 14px; color: var(--ink-soft); letter-spacing: 0.06em;
+}
+.dev-line strong {
+  font-family: var(--serif); letter-spacing: 0.2em; color: var(--ink);
+}
+.dev-copy {
+  margin-top: 6px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.android-badge {
+  margin-top: 26px;
+  height: 54px; width: auto;
+  /* the pill is nearly page-colored — a soft rim light keeps it readable */
+  filter: drop-shadow(0 0 16px rgba(120, 220, 200, 0.18)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45));
+}
+
+/* ---------- narrow screens ---------- */
+
+@media (max-width: 720px) {
+  .page { padding: 40px 16px 60px; }
+
+  /* hero */
+  header { margin-bottom: 18px; }
+  header .logo { width: 170px; }
+  header h1 { letter-spacing: 0.1em; }
+  .tagline { font-size: 14px; margin-top: 6px; }
+  .hero-rule { margin: 14px auto 10px; max-width: 300px; }
+  header h2 { letter-spacing: 0.3em; text-indent: 0.3em; }
+  .stand { font-size: 11px; padding: 5px 14px; margin-top: 12px; }
+  .progress { margin-top: 24px; max-width: 320px; }
+
+  /* timeline strip */
+  .viewport { height: min(76vh, 560px); }
+  .timeline { margin-top: 26px; }
+  .timeline::before, .timeline::after { width: 34px; }
+  .milestone { width: min(280px, 82vw); margin: 0 12px; --card-gap: 42px; }
+  .node { width: 48px; height: 48px; font-size: 21px; }
+  .done .node::after { width: 19px; height: 19px; font-size: 11px; }
+  .card { padding: 14px 16px; border-radius: 13px; }
+  .card h3 { font-size: 16.5px; margin-bottom: 6px; }
+  .card p { font-size: 13.5px; line-height: 1.55; }
+  .badge { margin-top: 10px; font-size: 10px; padding: 3px 10px; }
+  article.milestone:nth-of-type(odd) .card::before { bottom: -18px; height: 17px; }
+  article.milestone:nth-of-type(even) .card::before { top: -18px; height: 17px; }
+  .section-label { margin: 0 14px; }
+  .section-label .pill {
+    font-size: 13px; letter-spacing: 0.18em; text-indent: 0.18em; padding: 8px 18px;
+  }
+  .track { padding: 0 max(6vw, 36px); }
+  .track-cap { padding: 0 6px; }
+
+  /* footer */
+  footer { margin-top: 48px; }
+  .dev-logo { width: 46px; }
+  .dev-line { font-size: 13px; }
+  .dev-copy { font-size: 11px; }
+  .android-badge { height: 44px; margin-top: 20px; }
+}
+
+/* very flat viewports (landscape phones): give the strip nearly the whole
+   screen and shrink the copy so the fixed half-height rows never clip it */
+@media (max-height: 560px) {
+  .viewport { height: 88vh; }
+  .card { padding: 12px 14px; }
+  .card h3 { font-size: 15px; }
+  .card p { font-size: 12.5px; line-height: 1.5; }
+}
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  header > *, header h2::after, .progress-fill::after,
+  .here-marker, .here-marker::before, .here-marker::after { animation: none; }
+  .done .node { animation: none; }
+  #dust { display: none; }
+  .js .milestone, .js .section-label, .js .milestone .node,
+  .js .progress-fill { transition: none; }
+  .js .section-label,
+  .js .track article.milestone { opacity: 1; transform: none; }
+  .js .milestone .node { opacity: 1; transform: translate(-50%, -50%); }
+}
