@@ -40,9 +40,8 @@ Feedback und Ideen zur Roadmap sind willkommen. Gerne per Discord: aeycen
 ## Inhalt dieses Repositories
 
 Dieses Repository enthält die öffentliche Dokumentation des Projekts.
-Der Quellcode der App selbst ist closed source nicht Teil dieses Repositories.
+Der Quellcode der App selbst ist closed source und nicht Teil dieses Repositories.
 
----
 
 <p align="center">
   <img src="assets/built-for-android.png" alt="Built for Android" height="56">
